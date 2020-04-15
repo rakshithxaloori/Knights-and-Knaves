@@ -48,8 +48,23 @@ knowledge2 = And(
 # B says "A said 'I am a knave'."
 # B says "C is a knave."
 # C says "A is a knight."
+AClaim1 = AKnight
+AClaim2 = AKnave
+BClaim = And(AClaim2, CKnave)
+CClaim = AKnight
 knowledge3 = And(
-    # TODO
+    And(Or(AKnave, AKnight), Not(And(AKnave, AKnight))),
+    And(Or(BKnave, BKnight), Not(And(BKnave, BKnight))),
+    And(Or(CKnave, CKnight), Not(And(CKnave, CKnight))),
+
+    Implication(AKnave, Not(Or(AClaim1, AClaim2))),
+    Implication(AKnight, Or(AClaim1, AClaim2)),
+
+    Implication(BKnave, Not(BClaim)),
+    Implication(BKnight, BClaim),
+
+    Implication(CKnave, Not(CClaim)),
+    Implication(CKnight, CClaim)
 )
 
 
